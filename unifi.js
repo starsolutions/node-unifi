@@ -3125,6 +3125,9 @@ class Controller {
             callback(error);
           } else if (body && response.statusCode >= 200 && response.statusCode < 400 &&
                      (typeof (body) !== 'undefined' && typeof (body.meta) !== 'undefined' && body.meta.rc === 'ok')) {
+            if (response.headers['x-csrf-token']) {
+              _self._csrfToken = response.headers['x-csrf-token'];
+            }
             results.push(body.data);
             callback(null);
           } else if (typeof (body) !== 'undefined' && typeof (body.meta) !== 'undefined' && body.meta.rc === 'error') {
