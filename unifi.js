@@ -3121,6 +3121,9 @@ class Controller {
 
         reqfunc(options, (error, response, body) => {
           this._last_results_raw = body;
+          if (response.headers['x-csrf-token']) {
+            this._csrfToken = response.headers['x-csrf-token'];
+          }
           if (error) {
             callback(error);
           } else if (body && response.statusCode >= 200 && response.statusCode < 400 &&
